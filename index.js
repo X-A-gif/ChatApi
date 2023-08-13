@@ -1,8 +1,13 @@
-const server = require('./app');
-require('dotenv').config();
 
-const port = process.env.PORT || 3001;
+const express = require('express')
+const Gun = require('gun')
 
-server.listen(port, () => {
-    console.log(`Api running on port: ${port}`);
+const app = express()
+const port = 8000
+app.use(Gun.serve)
+
+const server = app.listen(port, () => {
+    console.log("Listening at: http://localhost://" + port)
 })
+
+Gun({web: server})
